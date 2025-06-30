@@ -3,8 +3,10 @@ package kr.co.chan.week2.domain.product.service;
 import kr.co.chan.week2.common.exception.ServiceException;
 import kr.co.chan.week2.common.exception.ServiceExceptionCode;
 import kr.co.chan.week2.common.response.PageResponse;
+import kr.co.chan.week2.domain.product.dto.ProductResponse;
 import kr.co.chan.week2.domain.product.dto.ProductSearchRequest;
 import kr.co.chan.week2.domain.product.dto.ProductSearchResponse;
+import kr.co.chan.week2.domain.product.entity.Product;
 import kr.co.chan.week2.domain.product.repository.ProductQueryRepository;
 import kr.co.chan.week2.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,4 +32,14 @@ public class ProductService {
     return productQueryRepository.findProducts(productSearchRequest, "createdAt", "desc");
   }
 
+
+  public ProductResponse findProductById(Long productId) {
+    Product product = getProduct(productId);
+
+  }
+
+  public Product getProduct(Long id) {
+    return productRepository.findById(id)
+        .orElseThrow(() -> new ServiceException(ServiceExceptionCode.NOT_FOUND_PRODUCT));
+  }
 }
