@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.querydsl.core.annotations.QueryProjection;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import kr.co.chan.week2.domain.category.dto.CategoryResponse;
 import kr.co.chan.week2.domain.category.entity.Category;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductResponse {
 
@@ -19,30 +22,13 @@ public class ProductResponse {
 
   String description;
 
-  Integer price;
+  BigDecimal price;
 
   Integer stock;
 
-  Category category;
+  CategoryResponse category;
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
   LocalDateTime createdAt;
 
-  @QueryProjection
-  public ProductResponse(
-      Long id,
-      String name,
-      String description,
-      BigDecimal price,
-      Integer stock,
-      LocalDateTime createdAt,
-      Category category) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.price = (price != null) ? price.intValue() : null;
-    this.stock = stock;
-    this.createdAt = createdAt;
-    this.category = category;
-  }
 }

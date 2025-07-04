@@ -19,28 +19,12 @@ public class GlobalExceptionHandler {
 
   @ExceptionHandler(ServiceException.class)
   public ResponseEntity<?> handleResponseException(ServiceException ex) {
-    return ApiResponse.error(ex.getCode(), ex.getMessage());
-  }
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity<?> methodArgumentNotValidException(MethodArgumentNotValidException ex) {
-    AtomicReference<String> errors = new AtomicReference<>("");
-    ex.getBindingResult().getAllErrors().forEach(c -> errors.set(c.getDefaultMessage()));
-
-    return ApiResponse.badRequest(VALIDATE_ERROR, String.valueOf(errors));
-  }
-
-  @ExceptionHandler(BindException.class)
-  public ResponseEntity<?> bindException(BindException ex) {
-    AtomicReference<String> errors = new AtomicReference<>("");
-    ex.getBindingResult().getAllErrors().forEach(c -> errors.set(c.getDefaultMessage()));
-
-    return ApiResponse.badRequest(VALIDATE_ERROR, String.valueOf(errors));
-  }
-
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<?> serverException(Exception ex) {
-    return ApiResponse.serverError(SERVER_ERROR, ex.getMessage());
+    return ApiResponse.of(
+        ex.getStatus().value(),           // 동적으로 HTTP 상태 코드 반영
+        false,
+        null,
+        ApiResponse.Error.of(ex.getCode(), ex.getMessage())
+    );
   }
 
 }

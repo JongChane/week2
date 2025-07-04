@@ -5,6 +5,7 @@ import kr.co.chan.week2.common.response.PageResponse;
 import kr.co.chan.week2.domain.product.dto.ProductResponse;
 import kr.co.chan.week2.domain.product.dto.ProductSearchRequest;
 import kr.co.chan.week2.domain.product.dto.ProductSearchResponse;
+import kr.co.chan.week2.domain.product.mapper.ProductMapper;
 import kr.co.chan.week2.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

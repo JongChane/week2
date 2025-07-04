@@ -7,6 +7,7 @@ import kr.co.chan.week2.domain.product.dto.ProductResponse;
 import kr.co.chan.week2.domain.product.dto.ProductSearchRequest;
 import kr.co.chan.week2.domain.product.dto.ProductSearchResponse;
 import kr.co.chan.week2.domain.product.entity.Product;
+import kr.co.chan.week2.domain.product.mapper.ProductMapper;
 import kr.co.chan.week2.domain.product.repository.ProductQueryRepository;
 import kr.co.chan.week2.domain.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class ProductService {
 
   private final ProductRepository productRepository;
   private final ProductQueryRepository productQueryRepository;
+  private final ProductMapper productMapper;
 
   public PageResponse<ProductSearchResponse> findProducts(ProductSearchRequest productSearchRequest) {
     if(StringUtils.hasText(productSearchRequest.getSortBy())) {
@@ -35,7 +37,7 @@ public class ProductService {
 
   public ProductResponse findProductById(Long productId) {
     Product product = getProduct(productId);
-
+    return productMapper.toProductResponse(product);
   }
 
   public Product getProduct(Long id) {

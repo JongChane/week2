@@ -23,11 +23,11 @@ public class ProductSearchResponse {
   LocalDateTime createdAt;
 
   @QueryProjection
-  public ProductSearchResponse(Long id, Long categoryId, String name, BigDecimal price, Integer stock, LocalDateTime createdAt) {
+  public ProductSearchResponse(Long id, Long categoryId, String name, Integer price, Integer stock, LocalDateTime createdAt) {
     this.id = id;
     this.categoryId = categoryId;
     this.name = name;
-    this.price = (price != null) ? price.intValue() : null;
+    this.price = price;
     this.stock = stock;
     this.createdAt = createdAt;
   }

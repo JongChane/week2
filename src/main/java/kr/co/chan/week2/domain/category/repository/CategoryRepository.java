@@ -1,5 +1,8 @@
 package kr.co.chan.week2.domain.category.repository;
 
-public interface CategoryRepository {
+import kr.co.chan.week2.domain.category.entity.Category;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 }

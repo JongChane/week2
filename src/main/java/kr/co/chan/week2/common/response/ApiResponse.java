@@ -31,24 +31,23 @@ public class ApiResponse<T> {
         .build();
   }
 
-  public static <T> ResponseEntity<ApiResponse<T>> error(String code, String errorMessage) {
-    return ResponseEntity.ok(ApiResponse.<T>builder()
-        .success(false)
-        .error(Error.of(code, errorMessage))
+  public static <T> ResponseEntity<ApiResponse<T>> created(T data) {
+    return ResponseEntity.status(201).body(ApiResponse.<T>builder()
+        .success(true)
+        .data(data)
         .build());
   }
 
-  public static <T> ResponseEntity<ApiResponse<T>> badRequest(String code, String errorMessage) {
-    return ResponseEntity.badRequest().body(ApiResponse.<T>builder()
-        .success(false)
-        .error(Error.of(code, errorMessage))
-        .build());
-  }
-
-  public static <T> ResponseEntity<ApiResponse<T>> serverError(String code, String errorMessage) {
-    return ResponseEntity.status(500).body(ApiResponse.<T>builder()
-        .success(false)
-        .error(Error.of(code, errorMessage))
+  public static <T> ResponseEntity<ApiResponse<T>> of(
+      int statusCode,
+      boolean success,
+      T data,
+      Error error
+  ) {
+    return ResponseEntity.status(statusCode).body(ApiResponse.<T>builder()
+        .success(success)
+        .data(data)
+        .error(error)
         .build());
   }
 

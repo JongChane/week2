@@ -39,14 +39,14 @@ public class Product {
   @JoinColumn(name = "category_id")
   private Category category;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   String name;
 
   @Column(columnDefinition = "TEXT")
   String description;
 
   @Column(nullable = false)
-  BigDecimal price;
+  Integer price;
 
   @Column(nullable = false)
   Integer stock;
@@ -64,7 +64,7 @@ public class Product {
       Category category,
       String name,
       String description,
-      BigDecimal price,
+      Integer price,
       Integer stock
   ) {
     this.category = category;
